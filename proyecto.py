@@ -22,6 +22,7 @@ file_path = os.path.dirname(path_py)
 ruta_chrome = os.path.join(file_path, "chromedriver.exe") # Ruta de chromedriver.exe
 brave_binary_path = 'C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe' # Ruta de brave.exe
 
+# Configuración del chromedriver y de Brave
 service = Service(ruta_chrome)
 brave_options = webdriver.ChromeOptions()
 brave_options = Options()
