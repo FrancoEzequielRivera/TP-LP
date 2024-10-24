@@ -4,9 +4,9 @@ Este proyecto está realizado en Python y se utiliza bibliotecas como Selenium, 
 
 ## Características
 Recolecta los rankings de lenguajes de programación desde 3 fuentes:
-- **PYPL** (PopularitY of Programming Language)
-- **TIOBE Index**
-- **RedMonk Ranking**
+- **[PYPL](https://pypl.github.io/PYPL.html "PYPL")** (PopularitY of Programming Language)
+- **[TIOBE Index](https://www.tiobe.com/tiobe-index/ "TIOBE Index")**
+- **[RedMonk Ranking](https://redmonk.com/sogrady/2024/03/08/language-rankings-1-24/ "RedMonk Ranking")**
 
 Crea una tabla comparativa en un archivo *Excel***, donde se listan los lenguajes de programación según su ranking en cada una de las fuentes.
 
@@ -34,6 +34,6 @@ Configurar la ruta de Brave
 C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe entre comillas.
 
 ## Uso
-Al ejecutar el script, este accede a cada una de las tres fuentes de rankings, recolecta los datos de lenguajes de programación y los organiza en un archivo Excel en formato de tabla comparativa. Cada fuente está representada en una columna distinta, y los lenguajes están alineados de acuerdo con su posición en el ranking de cada fuente.
+El script accede a cada una de las tres fuentes de rankings, recolecta los datos de lenguajes de programación y los organiza en un archivo Excel en formato de tabla comparativa. Cada fuente está representada en una columna distinta, y los lenguajes están alineados de acuerdo con su posición en el ranking de cada fuente.
 
 El archivo generado se guarda como comparacion.xlsx.
