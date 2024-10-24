@@ -1,4 +1,4 @@
-#Proyecto: Scraping de rankings de tecnologías web más utilizadas
+# Proyecto: Scraping de rankings de tecnologías web más utilizadas
 ## Descripción
 Este proyecto está realizado en Python y se utiliza bibliotecas como Selenium, para la recolección de datos de tres páginas web, y pandas, para la creación de un archivo Excel comparando los rankings adquiridos de cada fuente.
 
