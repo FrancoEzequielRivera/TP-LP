@@ -34,6 +34,6 @@ Configurar la ruta de Brave
 C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe entre comillas.
 
 ## Uso
-El script accede a cada una de las tres fuentes de rankings, recolecta los datos de lenguajes de programación y los organiza en un archivo Excel en formato de tabla comparativa. Cada fuente está representada en una columna distinta, y los lenguajes están alineados de acuerdo con su posición en el ranking de cada fuente.
+Al ejecutar el script, este accede a cada una de las tres fuentes de rankings, recolecta los datos de lenguajes de programación y los organiza en un archivo Excel en formato de tabla comparativa. Cada fuente está representada en una columna distinta, y los lenguajes están alineados de acuerdo con su posición en el ranking de cada fuente.
 
 El archivo generado se guarda como comparacion.xlsx.
