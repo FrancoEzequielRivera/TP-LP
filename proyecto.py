@@ -3,10 +3,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import os
-import pandas as pan
+import pandas as pd
 
 def quitar_no_webs(lista):
-    filtro = ["JavaScript", "Python", "Ruby", "PHP", "Java", "C#", "Go", "Golang", "TypeScript", "Kotlin", "Rust", "Perl", "Swift", "R", "Dart", "Elixir", "Scala", "Lua", "Rust", "Haskell"]
+    filtro = ["JavaScript", "Python", "Ruby", "PHP", "Java", "C#", "Go", "Golang", "TypeScript", "Kotlin", "Rust", "Perl", "Swift", "R", "Dart", "Elixir", "Scala", "Lua", "Haskell"]
     lista_filtrada = []
 
     for lenguaje in lista:
@@ -39,7 +39,7 @@ web.get('https://pypl.github.io/PYPL.html')
 # Selecciono los nombres de los lenguajes
 tabla_ranking_pypl = web.find_element(By.TAG_NAME, 'tbody')
 lenguajes_pypl = tabla_ranking_pypl.find_elements(By.TAG_NAME, 'tr') # Selecciono cada caja de cada lenguaje
-nombre_lenguajes_pypl = []
+nombre_lenguajes_pypl = [] # Lista donde guardaré los nombres como string
 
 # Recorro cada lenguaje y almaceno los nombres en una lista
 for i in range(1, len(lenguajes_pypl)-1):
@@ -57,7 +57,7 @@ web.get('https://www.tiobe.com/tiobe-index/')
 # Selecciono los nombres de los lenguajes
 tabla_ranking_tiobe = web.find_element(By.XPATH, '//*[@id="top20"]/tbody')
 lenguajes_tiobe = tabla_ranking_tiobe.find_elements(By.TAG_NAME, 'tr') # Selecciono cada caja de cada lenguaje
-nombre_lenguajes_tiobe = []
+nombre_lenguajes_tiobe = [] # Lista donde guardaré los nombres como string
 
 # Recorro cada lenguaje y almaceno los nombres en una lista
 for i in range(len(lenguajes_tiobe)):
@@ -75,7 +75,7 @@ web.get('https://redmonk.com/sogrady/2024/03/08/language-rankings-1-24/')
 # Selecciono los nombres de los lenguajes
 seccion_nombres_redmonk = web.find_element(By.XPATH, '/html/body/div/div/div/main/div[1]/article/div/p[7]')
 lista_nombres_redmonk = seccion_nombres_redmonk.text.splitlines()
-nombre_lenguajes_redmonk = []
+nombre_lenguajes_redmonk = [] # Lista donde guardaré los nombres como string
 caracteres_indeseados = [" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 # Recorro cada nombre de cada lenguaje, quito caracteres indeseados y los almaceno en una lista
@@ -96,15 +96,55 @@ nombre_lenguajes_tiobe = nombre_lenguajes_tiobe[:10]
 nombre_lenguajes_redmonk = quitar_no_webs(nombre_lenguajes_redmonk)
 nombre_lenguajes_redmonk = nombre_lenguajes_redmonk[:10]
 
-# Guardo las listas con nombres en un diccionario
+# Creo un diccionario con lenguajes y sus puntajes
+puntajes = {
+    "JavaScript": 0,
+    "Python": 0,
+    "Ruby": 0,
+    "PHP": 0,
+    "Java": 0,
+    "C#": 0,
+    "Go": 0,
+    "Golang": 0,
+    "TypeScript": 0,
+    "Kotlin": 0,
+    "Rust": 0,
+    "Perl": 0,
+    "Swift": 0,
+    "R": 0,
+    "Dart": 0,
+    "Elixir": 0,
+    "Scala": 0,
+    "Lua": 0,
+    "Haskell": 0
+}
+
+# Asigno un puntaje a cada lenguaje según la posición que ocupe
+for lista in [nombre_lenguajes_pypl, nombre_lenguajes_tiobe, nombre_lenguajes_redmonk]:
+    for i in range(len(lista)):
+        lenguaje = lista[i]
+        puntajes[lenguaje] += (10 - i)
+
+# Transformo a puntajes en listas y le asigno un tamaño = 10 a cada una
+puntajes_ordenados = dict(sorted(puntajes.items(), key=lambda item: item[1], reverse=True)) # Ordeno los puntajes de forma descendente
+puntajes_clave = list(puntajes_ordenados.keys())
+puntajes_clave = puntajes_clave[:10]
+
+puntajes_valor = list(puntajes_ordenados.values())
+puntajes_valor = puntajes_valor[:10]
+
+# Guardo las listas en un diccionario
 datos = {
     'PYPL' : nombre_lenguajes_pypl,
     'TIOBE' : nombre_lenguajes_tiobe,
-    'REDMONK' : nombre_lenguajes_redmonk
+    'REDMONK' : nombre_lenguajes_redmonk,
+    '' : '',
+    'Puntaje': puntajes_valor,
+    'Lenguaje': puntajes_clave
 }
 
 # Creo un Data Frame con el diccionario
-dataf = pan.DataFrame(datos)
+dataf = pd.DataFrame(datos)
 
 # Creo un archivo excel con el Data Frame
 dataf.to_excel("comparacion.xlsx", index=False)
